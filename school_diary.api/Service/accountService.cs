@@ -13,7 +13,7 @@ namespace school_diary.api.Service
         private readonly IPasswordHasher<User> passwordHasher;
         private readonly authSettings auth;
 
-        public accountService(DiaryDbContext diaryDbContext, IPasswordHasher<User> passwordHasher,authSettings auth)
+        public accountService(DiaryDbContext diaryDbContext, IPasswordHasher<User> passwordHasher, authSettings auth)
         {
             this.diaryDbContext = diaryDbContext;
             this.passwordHasher = passwordHasher;

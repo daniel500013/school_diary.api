@@ -5,7 +5,7 @@ using school_diary.api.Service;
 namespace school_diary.api.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private accountService accountService;

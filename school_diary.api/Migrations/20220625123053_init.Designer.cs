@@ -12,7 +12,7 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    [Migration("20220624154145_init")]
+    [Migration("20220625123053_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,52 @@ namespace school_diary.api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("school_diary.api.Model.Lesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("lesson");
+                });
+
+            modelBuilder.Entity("school_diary.api.Model.Marks", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LessonID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Present")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("marks");
+                });
 
             modelBuilder.Entity("school_diary.api.Model.Role", b =>
                 {
@@ -44,7 +90,7 @@ namespace school_diary.api.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "User"
+                            Name = "Student"
                         },
                         new
                         {
@@ -138,6 +184,25 @@ namespace school_diary.api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("userClass");
+                });
+
+            modelBuilder.Entity("school_diary.api.Model.Marks", b =>
+                {
+                    b.HasOne("school_diary.api.Model.Lesson", "Lesson")
+                        .WithMany()
+                        .HasForeignKey("LessonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("school_diary.api.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.User", b =>
