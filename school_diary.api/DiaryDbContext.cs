@@ -13,6 +13,8 @@ namespace school_diary.api
         public DbSet<User> user { get; set; }
         public DbSet<Role> role { get; set; }
         public DbSet<UserClass> userClass { get; set; }
+        public DbSet<Lesson> lesson { get; set; }
+        public DbSet<Marks> marks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,13 +32,20 @@ namespace school_diary.api
 
             modelBuilder.Entity<UserClass>()
                 .Property(x => x.userClassProfile)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Lesson>()
+                .Property(x => x.Name)
                 .IsRequired();
+
+            modelBuilder.Entity<Marks>()
+                .Property(x => x.Present);
 
             modelBuilder.Entity<Role>()
                 .HasData(new Role()
                 {
                     Id = 1,
-                    Name = "User"
+                    Name = "Student"
                 },
                 new Role()
                 {

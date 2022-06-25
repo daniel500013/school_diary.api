@@ -10,6 +10,19 @@ namespace school_diary.api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "lesson",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_lesson", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "role",
                 columns: table => new
                 {
@@ -71,16 +84,54 @@ namespace school_diary.api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "marks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Present = table.Column<bool>(type: "bit", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LessonID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_marks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_marks_lesson_LessonID",
+                        column: x => x.LessonID,
+                        principalTable: "lesson",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_marks_user_UserID",
+                        column: x => x.UserID,
+                        principalTable: "user",
+                        principalColumn: "uuid",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "role",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "User" },
+                    { 1, "Student" },
                     { 2, "Teacher" },
                     { 3, "LocalAdmin" },
                     { 4, "Admin" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_marks_LessonID",
+                table: "marks",
+                column: "LessonID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_marks_UserID",
+                table: "marks",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_RoleId",
@@ -95,6 +146,12 @@ namespace school_diary.api.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "marks");
+
+            migrationBuilder.DropTable(
+                name: "lesson");
+
             migrationBuilder.DropTable(
                 name: "user");
 
