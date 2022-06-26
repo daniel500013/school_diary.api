@@ -9,10 +9,7 @@
         [Required]
         public DateTime Date { get; set; }
 
-        public Guid UserID { get; set; }
-        public virtual User User { get; set; }
-
-        public int LessonID { get; set; }
-        public virtual Lesson Lesson { get; set; }
+        public int LessonId { get; set; }
+        public virtual Lesson? Lesson { get; set; }
     }
 }
