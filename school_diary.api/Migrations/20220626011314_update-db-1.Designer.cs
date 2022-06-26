@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using school_diary.api;
 
@@ -11,9 +12,10 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220626011314_update-db-1")]
+    partial class updatedb1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,12 +36,7 @@ namespace school_diary.api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("lesson");
                 });
@@ -55,15 +52,15 @@ namespace school_diary.api.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Present")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("marks");
                 });
@@ -113,6 +110,9 @@ namespace school_diary.api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -156,6 +156,8 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("uuid");
 
+                    b.HasIndex("LessonId");
+
                     b.HasIndex("RoleId");
 
                     b.HasIndex("userClassId");
@@ -183,18 +185,18 @@ namespace school_diary.api.Migrations
                     b.ToTable("userClass");
                 });
 
-            modelBuilder.Entity("school_diary.api.Model.Lesson", b =>
+            modelBuilder.Entity("school_diary.api.Model.Marks", b =>
                 {
                     b.HasOne("school_diary.api.Model.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("school_diary.api.Model.Marks", b =>
+            modelBuilder.Entity("school_diary.api.Model.User", b =>
                 {
                     b.HasOne("school_diary.api.Model.Lesson", "Lesson")
                         .WithMany()
@@ -202,11 +204,6 @@ namespace school_diary.api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Lesson");
-                });
-
-            modelBuilder.Entity("school_diary.api.Model.User", b =>
-                {
                     b.HasOne("school_diary.api.Model.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
@@ -218,6 +215,8 @@ namespace school_diary.api.Migrations
                         .HasForeignKey("userClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Lesson");
 
                     b.Navigation("Role");
 

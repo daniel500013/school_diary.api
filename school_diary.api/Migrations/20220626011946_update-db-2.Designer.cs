@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using school_diary.api;
 
@@ -11,9 +12,10 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220626011946_update-db-2")]
+    partial class updatedb2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,15 +57,10 @@ namespace school_diary.api.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Present")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LessonId");
 
                     b.ToTable("marks");
                 });
@@ -192,17 +189,6 @@ namespace school_diary.api.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("school_diary.api.Model.Marks", b =>
-                {
-                    b.HasOne("school_diary.api.Model.Lesson", "Lesson")
-                        .WithMany()
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.User", b =>
