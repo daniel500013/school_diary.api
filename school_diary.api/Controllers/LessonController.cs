@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -7,6 +8,7 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "LocalAdmin, Admin")]
     public class LessonController : ControllerBase
     {
         private lessonService homeService;
@@ -26,6 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid}")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> GetUserLessons([FromBody] Guid uuid)
         {
             var listOfLessons = await homeService.GetUserLessons(uuid.ToString());
