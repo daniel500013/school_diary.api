@@ -15,6 +15,7 @@ namespace school_diary.api
         public DbSet<UserClass> userClass { get; set; }
         public DbSet<Lesson> lesson { get; set; }
         public DbSet<Marks> marks { get; set; }
+        public DbSet<Grade> grades { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +41,9 @@ namespace school_diary.api
 
             modelBuilder.Entity<Marks>()
                 .Property(x => x.Present);
+
+            modelBuilder.Entity<Grade>()
+                .Property(x => x.Name);
 
             modelBuilder.Entity<Role>()
                 .HasData(new Role()
