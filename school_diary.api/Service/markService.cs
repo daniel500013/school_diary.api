@@ -32,7 +32,7 @@ namespace school_diary.api.Service
         {
             if (mark is null)
             {
-                throw new Exception("Invalid mark data");
+                throw new Exception("Invalid mark data model");
             }
 
             await diaryDbContext.AddAsync(mark);

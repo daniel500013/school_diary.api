@@ -37,7 +37,7 @@ namespace school_diary.api.Service
         {
             if (lesson is null)
             {
-                throw new Exception("Invalid data");
+                throw new Exception("Invalid lesson data model");
             }
 
             await diaryDbContext.lesson.AddAsync(lesson);

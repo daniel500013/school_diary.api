@@ -36,6 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddScoped<accountService>();
 builder.Services.AddScoped<lessonService>();
 builder.Services.AddScoped<markService>();
+builder.Services.AddScoped<gradeService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 builder.Services.AddSingleton(auth);
