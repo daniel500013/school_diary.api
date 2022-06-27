@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -7,6 +8,7 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class MarkController : ControllerBase
     {
         private markService markService;
@@ -26,7 +28,8 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:guid}")]
-        public async Task<IActionResult> GetAllMarks(Guid uuid)
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> GetUserMarks(Guid uuid)
         {
             await markService.GetUserMarks(uuid.ToString());
 
@@ -35,6 +38,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> AddMark(Marks mark)
         {
             await markService.AddMark(mark);
@@ -44,6 +48,7 @@ namespace school_diary.api.Controllers
 
         [HttpPut]
         [Route("change/{id:int}")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> PutMark(int id, bool present)
         {
             await markService.PutMark(id, present);

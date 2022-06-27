@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -7,6 +8,7 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class GradeController : ControllerBase
     {
         private gradeService gradeService;
@@ -17,6 +19,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Teacher, LocalAdmin")]
         public async Task<IActionResult> GetAllGrades()
         {
             var grades = await gradeService.GetAllGrades();
@@ -26,6 +29,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:Guid}")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> GetUserGrades(Guid uuid)
         {
             var userGrades = await gradeService.GetUserGrades(uuid.ToString());
