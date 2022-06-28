@@ -39,6 +39,7 @@ builder.Services.AddScoped<markService>();
 builder.Services.AddScoped<gradeService>();
 builder.Services.AddScoped<roleService>();
 builder.Services.AddScoped<classManagerService>();
+builder.Services.AddScoped<approveService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 builder.Services.AddSingleton(auth);
