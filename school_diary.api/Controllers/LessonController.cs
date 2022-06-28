@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -8,7 +7,7 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "LocalAdmin, Admin")]
+    [Authorize]
     public class LessonController : ControllerBase
     {
         private lessonService homeService;
@@ -19,6 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllLessons()
         {
             var listOfLessons = await homeService.GetAllLessons();
@@ -28,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid}")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserLessons([FromBody] Guid uuid)
         {
             var listOfLessons = await homeService.GetUserLessons(uuid.ToString());
@@ -40,6 +40,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> CreateLesson(Lesson lesson)
         {
             await homeService.AddLesson(lesson);
@@ -49,6 +50,7 @@ namespace school_diary.api.Controllers
 
         [HttpPut]
         [Route("change/{id:int}")]
+        [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> PutLesson(int id, string lesson)
         {
             await homeService.PutLesson(id, lesson);
@@ -58,6 +60,7 @@ namespace school_diary.api.Controllers
 
         [HttpDelete]
         [Route("delete/{id:int}")]
+        [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> DeleteLesson(int id)
         {
             await homeService.DeleteLesson(id);

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
 
 namespace school_diary.api.Service
 {
@@ -60,19 +58,25 @@ namespace school_diary.api.Service
                 throw new Exception("Invalid login or password");
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.UTF8.GetBytes(auth.Key);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var claims = new List<Claim>()
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.uuid.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role.Name)
-                }),
-                Expires = DateTime.UtcNow.AddHours(2),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+                new Claim(ClaimTypes.NameIdentifier, user.uuid.ToString()),
+                new Claim(ClaimTypes.Name, user.email),
+                new Claim(ClaimTypes.Role, user.Role.Name)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(auth.Key));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddHours(10);
+
+            var token = new JwtSecurityToken(auth.Issuer,
+                auth.Issuer,
+                claims,
+                expires: expires,
+                signingCredentials: cred);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
             return tokenHandler.WriteToken(token);
         }
     }

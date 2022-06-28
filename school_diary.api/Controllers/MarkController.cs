@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -8,7 +7,7 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class MarkController : ControllerBase
     {
         private markService markService;
@@ -19,6 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, LocalAdmin")]
         public async Task<IActionResult> GetAllMarks()
         {
             var marks = await markService.GetAllMarks();
@@ -58,6 +58,7 @@ namespace school_diary.api.Controllers
 
         [HttpDelete]
         [Route("delete/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMark(int id)
         {
             await markService.DeleteMark(id);
