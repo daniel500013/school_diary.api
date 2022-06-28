@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -8,18 +7,18 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class GradeController : ControllerBase
     {
         private gradeService gradeService;
-            
+
         public GradeController(gradeService gradeService)
         {
             this.gradeService = gradeService;
         }
 
         [HttpGet]
-        [Authorize(Roles = "Teacher, LocalAdmin")]
+        [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllGrades()
         {
             var grades = await gradeService.GetAllGrades();
@@ -29,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:Guid}")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserGrades(Guid uuid)
         {
             var userGrades = await gradeService.GetUserGrades(uuid.ToString());
@@ -39,6 +38,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "Admin,LocalAdmin")]
         public async Task<IActionResult> AddGrade(Grade grade)
         {
             await gradeService.AddGrade(grade);
@@ -48,6 +48,7 @@ namespace school_diary.api.Controllers
 
         [HttpPut]
         [Route("change/{id:int}")]
+        [Authorize(Roles = "Admin,LocalAdmin")]
         public async Task<IActionResult> PutGrade(int id, Grade grade)
         {
             await gradeService.PutGrade(id, grade);
@@ -57,6 +58,7 @@ namespace school_diary.api.Controllers
 
         [HttpDelete]
         [Route("delete/{id:int}")]
+        [Authorize(Roles = "Admin, LocalAdmin")]
         public async Task<IActionResult> DeleteGrade(int id)
         {
             await gradeService.DeleteGrade(id);

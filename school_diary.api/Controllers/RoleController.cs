@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -19,6 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllRoles()
         {
             var roles = await roleService.GetAllRoles();
@@ -28,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:Guid}")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserRole(Guid uuid)
         {
             var userRole = await roleService.GetUserRole(uuid.ToString());
@@ -38,6 +38,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRole(Role role)
         {
             await roleService.AddRole(role);
@@ -47,6 +48,7 @@ namespace school_diary.api.Controllers
 
         [HttpPut]
         [Route("change/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutRole(int id, Role role)
         {
             await roleService.PutRole(id, role);
@@ -56,6 +58,7 @@ namespace school_diary.api.Controllers
 
         [HttpDelete]
         [Route("delete")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole(int id)
         {
             await roleService.DeleteRole(id);

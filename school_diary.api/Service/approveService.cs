@@ -64,7 +64,7 @@ namespace school_diary.api.Service
                 throw new Exception("Given approve dosen't exist in context");
             }
 
-            newApprove.Positive = approve.Positive; 
+            newApprove.Positive = approve.Positive;
             newApprove.Description = approve.Description;
 
             diaryDbContext.Update(newApprove);

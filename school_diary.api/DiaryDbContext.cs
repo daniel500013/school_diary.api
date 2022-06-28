@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using school_diary.api.Model;
+﻿using school_diary.api.Model;
 
 namespace school_diary.api
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
@@ -8,7 +7,7 @@ namespace school_diary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class ClassManagerController : ControllerBase
     {
         private classManagerService classManagerService;
@@ -19,7 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllClasses()
         {
             var allClasses = await classManagerService.GetAllClasses();
@@ -39,6 +38,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddClass(UserClass userClass)
         {
             await classManagerService.AddClass(userClass);
@@ -47,6 +47,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutClass(int id, UserClass userClass)
         {
             await classManagerService.PutClass(id, userClass);
@@ -55,6 +56,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteClass(int id)
         {
             await classManagerService.DeleteUserClass(id);

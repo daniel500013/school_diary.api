@@ -23,6 +23,6 @@
         public virtual Role? Role { get; set; }
 
         public int userClassId { get; set; } = 1;
-        public virtual UserClass? userClass { get;set; }
+        public virtual UserClass? userClass { get; set; }
     }
 }
