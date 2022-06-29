@@ -12,19 +12,12 @@ Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 
 # Funkcje
 - ``Uwierzytelnianie użytkowników wraz z ich pobieraniem``
-<br />
 - ``Autoryzacja rolami``
-<br />
 - ``Zarządzanie rolami (CURD)``
-<br />
 - ``Zarządzanie lekcjami (CURD)``
-<br />
 - ``Zarządzanie ocenami (CURD)``
-<br />
 - ``Zarządzanie klasami (CURD)``
-<br />
 - ``Zarządzanie pochwałami (CURD)``
-<br />
 - ``Zarządzanie obecnościami (CURD)``
 <br />
 
