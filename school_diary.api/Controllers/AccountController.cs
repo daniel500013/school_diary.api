@@ -33,7 +33,7 @@ namespace school_diary.api.Controllers
         /// </summary>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] Login user)
         {
             var token = await accountService.Login(user);
 

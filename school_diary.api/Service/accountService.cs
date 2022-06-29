@@ -9,12 +9,14 @@ namespace school_diary.api.Service
     {
         private readonly DiaryDbContext diaryDbContext;
         private readonly IPasswordHasher<User> passwordHasher;
+        private readonly IPasswordHasher<Login> passwordHasherLogin;
         private readonly authSettings auth;
 
-        public accountService(DiaryDbContext diaryDbContext, IPasswordHasher<User> passwordHasher, authSettings auth)
+        public accountService(DiaryDbContext diaryDbContext, IPasswordHasher<User> passwordHasher, IPasswordHasher<Login> passwordHasherLogin, authSettings auth)
         {
             this.diaryDbContext = diaryDbContext;
             this.passwordHasher = passwordHasher;
+            this.passwordHasherLogin = passwordHasherLogin;
             this.auth = auth;
         }
 
@@ -47,7 +49,7 @@ namespace school_diary.api.Service
             await diaryDbContext.SaveChangesAsync();
         }
 
-        public async Task<string> Login(User userModel)
+        public async Task<string> Login(Login userModel)
         {
             var user = await diaryDbContext.user
                 .Include(x => x.Role)
@@ -58,7 +60,7 @@ namespace school_diary.api.Service
                 throw new Exception("Invalid login or password");
             }
 
-            var checkPassword = passwordHasher.VerifyHashedPassword(userModel, user.hashPassword, userModel.password);
+            var checkPassword = passwordHasherLogin.VerifyHashedPassword(userModel, user.hashPassword, userModel.password);
 
             if (checkPassword == PasswordVerificationResult.Failed)
             {
