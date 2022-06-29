@@ -18,7 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, LocalAdmin")]
+        [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllMarks()
         {
             var marks = await markService.GetAllMarks();
@@ -28,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:guid}")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Tutor")]
         public async Task<IActionResult> GetUserMarks(Guid uuid)
         {
             await markService.GetUserMarks(uuid.ToString());
@@ -38,7 +38,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,Tutor")]
         public async Task<IActionResult> AddMark(Marks mark)
         {
             await markService.AddMark(mark);
@@ -48,7 +48,7 @@ namespace school_diary.api.Controllers
 
         [HttpPut]
         [Route("change/{id:int}")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,Tutor")]
         public async Task<IActionResult> PutMark(int id, bool present)
         {
             await markService.PutMark(id, present);

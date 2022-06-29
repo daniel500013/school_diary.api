@@ -18,7 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "LocalAdmin,Admin")]
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllLessons()
         {
             var listOfLessons = await homeService.GetAllLessons();
@@ -28,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid}")]
-        [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
+        [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserLessons([FromBody] Guid uuid)
         {
             var listOfLessons = await homeService.GetUserLessons(uuid.ToString());
