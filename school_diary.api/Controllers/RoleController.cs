@@ -28,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:Guid}")]
-        [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
+        [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserRole(Guid uuid)
         {
             var userRole = await roleService.GetUserRole(uuid.ToString());

@@ -18,7 +18,7 @@ namespace school_diary.api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "LocalAdmin,Admin,Teacher")]
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllApproves()
         {
             var approves = await approveService.GetAllApproves();
@@ -28,7 +28,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("{uuid:Guid}")]
-        [Authorize(Roles = "LocalAdmin,Admin,Teacher,Student")]
+        [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserApproves(Guid uuid)
         {
             var approves = await approveService.GetUserApproves(uuid.ToString());
@@ -38,7 +38,7 @@ namespace school_diary.api.Controllers
 
         [HttpPost]
         [Route("add")]
-        [Authorize(Roles = "LocalAdmin,Admin,Teacher")]
+        [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> AddApprove(Approve approve)
         {
             await approveService.AddApprove(approve);
@@ -48,7 +48,7 @@ namespace school_diary.api.Controllers
 
         [HttpPut]
         [Route("change/{id:int}")]
-        [Authorize(Roles = "LocalAdmin,Admin,Teacher")]
+        [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> PutApprove(int id, Approve approve)
         {
             await approveService.PutApprove(id, approve);
@@ -58,7 +58,7 @@ namespace school_diary.api.Controllers
 
         [HttpDelete]
         [Route("delete/{id:int}")]
-        [Authorize(Roles = "LocalAdmin,Admin,Teacher")]
+        [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> DeleteApprove(int id)
         {
             await approveService.DeleteApprove(id);
