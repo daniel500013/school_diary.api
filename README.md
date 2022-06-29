@@ -8,7 +8,7 @@ Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 ``.NET Core 6``
 
 # Schemat graficzny bazy danych
-![](/git/baza2.png)
+![](/git/baza.png)
 
 # Funkcje
 - ``Uwierzytelnianie użytkowników wraz z ich pobieraniem``
