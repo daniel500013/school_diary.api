@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using school_diary.api;
 
@@ -11,9 +12,10 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629001339_update-db-11")]
+    partial class updatedb11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,17 +219,6 @@ namespace school_diary.api.Migrations
                     b.HasIndex("userClassId");
 
                     b.ToTable("user");
-
-                    b.HasData(
-                        new
-                        {
-                            uuid = new Guid("beda6bbc-3953-4cb8-91d1-019f8627111b"),
-                            RoleId = 5,
-                            email = "admin@admin.com",
-                            hashPassword = "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==",
-                            password = "",
-                            userClassId = 1
-                        });
                 });
 
             modelBuilder.Entity("school_diary.api.Model.UserClass", b =>
