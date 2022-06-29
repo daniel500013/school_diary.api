@@ -26,6 +26,26 @@ namespace school_diary.api.Controllers
             return Ok(grades);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Route("class/{ClassId:int}")]
+        public async Task<IActionResult> GetClassGrades(int ClassId)
+        {
+            var grades = await gradeService.GetClassGrades(ClassId);
+
+            return Ok(grades);
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Route("class/{ClassId:int}/lesson/{LessonId:int}")]
+        public async Task<IActionResult> GetLessonClassGrades(int LessonId, int ClassId)
+        {
+            var grades = await gradeService.GetLessonClassGrades(ClassId, LessonId);
+
+            return Ok(grades);
+        }
+
         [HttpPost]
         [Route("{uuid:Guid}")]
         [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]

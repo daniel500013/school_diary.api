@@ -18,6 +18,44 @@ namespace school_diary.api.Service
             return grades;
         }
 
+        public async Task<List<Grade>> GetClassGrades(int classId)
+        {
+            var grades = await diaryDbContext.grades
+                .Where(x => x.UserClassId == classId)
+                .ToListAsync();
+
+            if (grades.Count == 0)
+            {
+                throw new Exception("Given class dosen't exist");
+            }
+
+            return grades;
+        }
+
+        public async Task<List<Grade>> GetLessonClassGrades(int classId, int LessonId)
+        {
+            var getLessonName = await diaryDbContext.lesson
+                .FirstOrDefaultAsync(x => x.Id == LessonId);
+
+            if (getLessonName is null)
+            {
+                throw new Exception("Given lesson dosen't exist");
+            }
+
+            var grades = await diaryDbContext.grades
+                .Include(x => x.Lesson)
+                .Where(x => x.Lesson.Name == getLessonName.Name)
+                .Where(x => x.UserClassId == classId)
+                .ToListAsync();
+
+            if (grades.Count == 0)
+            {
+                throw new Exception("Given class dosen't exist");
+            }
+
+            return grades;
+        }
+
         public async Task<List<Grade>> GetUserGrades(string uuid)
         {
             if (uuid is null)
