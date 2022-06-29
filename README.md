@@ -1,12 +1,15 @@
 ![](/git/image.png)
 # API Dziennika Elektronicznego
 Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
+
 # Wymagania
 `` SQL Server >2016``
 <br />
 ``.NET Core 6``
+
 # Schemat graficzny bazy danych
 ![](/git/baza.png)
+
 # Funkcje
 - ``Uwierzytelnianie użytkowników wraz z ich pobieraniem``
 <br />
@@ -24,6 +27,7 @@ Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 <br />
 - ``Zarządzanie obecnościami (CURD)``
 <br />
+
 # Domyślne dane logowania
 ### Admin
 `` Login: admin@admin.com``
