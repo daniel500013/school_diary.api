@@ -23,6 +23,7 @@ Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 - ``Zarządzanie pochwałami (CURD)``
 <br />
 - ``Zarządzanie obecnościami (CURD)``
+<br />
 # Domyślne dane logowania
 ### Admin
 `` Login: admin@admin.com``
