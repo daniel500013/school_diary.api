@@ -23,8 +23,6 @@ Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 
 # Problemy (Do zrobienia)
 - ``Nauczyciel może wstawić ocene na przedmiocie którego nie uczy``
-<br />
-
 # Domyślne dane logowania
 ### Admin
 `` Login: admin@admin.com``
