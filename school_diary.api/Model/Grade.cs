@@ -11,5 +11,8 @@
 
         public int LessonId { get; set; }
         public virtual Lesson? Lesson { get; set; }
+
+        public int UserClassId { get; set; }
+        public virtual UserClass? UserClass { get; set; }
     }
 }

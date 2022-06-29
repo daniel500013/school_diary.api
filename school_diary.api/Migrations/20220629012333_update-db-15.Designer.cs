@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using school_diary.api;
 
@@ -11,9 +12,10 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629012333_update-db-15")]
+    partial class updatedb15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,7 @@ namespace school_diary.api.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("approves", (string)null);
+                    b.ToTable("approves");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Grade", b =>
@@ -66,16 +68,11 @@ namespace school_diary.api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserClassId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LessonId");
 
-                    b.HasIndex("UserClassId");
-
-                    b.ToTable("grades", (string)null);
+                    b.ToTable("grades");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Lesson", b =>
@@ -97,7 +94,7 @@ namespace school_diary.api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("lesson", (string)null);
+                    b.ToTable("lesson");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Marks", b =>
@@ -121,7 +118,7 @@ namespace school_diary.api.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("marks", (string)null);
+                    b.ToTable("marks");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Role", b =>
@@ -138,7 +135,7 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("role", (string)null);
+                    b.ToTable("role");
 
                     b.HasData(
                         new
@@ -221,12 +218,12 @@ namespace school_diary.api.Migrations
 
                     b.HasIndex("userClassId");
 
-                    b.ToTable("user", (string)null);
+                    b.ToTable("user");
 
                     b.HasData(
                         new
                         {
-                            uuid = new Guid("217d96bb-cdbc-44e7-ac40-5b6ff97a7d40"),
+                            uuid = new Guid("bfce7a96-0911-46a2-a719-5e73fef0719b"),
                             RoleId = 5,
                             email = "admin@admin.com",
                             hashPassword = "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==",
@@ -252,7 +249,7 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("userClass", (string)null);
+                    b.ToTable("userClass");
 
                     b.HasData(
                         new
@@ -282,13 +279,7 @@ namespace school_diary.api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("school_diary.api.Model.UserClass", "UserClass")
-                        .WithMany()
-                        .HasForeignKey("UserClassId");
-
                     b.Navigation("Lesson");
-
-                    b.Navigation("UserClass");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Lesson", b =>
