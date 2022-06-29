@@ -63,12 +63,43 @@ namespace school_diary.api
                 new Role()
                 {
                     Id = 3,
-                    Name = "LocalAdmin"
+                    Name = "Tutor"
                 },
                 new Role()
                 {
                     Id = 4,
+                    Name = "LocalAdmin"
+                },
+                new Role()
+                {
+                    Id = 5,
                     Name = "Admin"
+                });
+
+            modelBuilder.Entity<UserClass>()
+                .HasData(new UserClass()
+                {
+                    Id = 1,
+                    userClass = 1,
+                    userClassProfile = ""
+                });
+
+            modelBuilder.Entity<User>()
+                .HasData(new User()
+                {
+                    uuid = Guid.NewGuid(),
+                    email = "admin@admin.com",
+                    password = "",
+                    firstName = null,
+                    lastName = null,
+                    hashPassword = "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==",
+                    phone = null,
+                    state = null,
+                    city = null,
+                    zipCode = null,
+                    address = null,
+                    RoleId = 5,
+                    userClassId = 1
                 });
         }
     }
