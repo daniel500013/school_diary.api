@@ -21,6 +21,10 @@ Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 - ``Zarządzanie obecnościami (CURD)``
 <br />
 
+# Problemy (Do zrobienia)
+- ``Nauczyciel może wstawić ocene na przedmiocie którego nie uczy``
+<br />
+
 # Domyślne dane logowania
 ### Admin
 `` Login: admin@admin.com``
