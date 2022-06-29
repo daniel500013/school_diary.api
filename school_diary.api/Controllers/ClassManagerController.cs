@@ -30,7 +30,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Zwraca informacje o klasie użytkownika przez jego uuid
+        /// Zwraca informacje o klasie użytkownika przez uuid
         /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
@@ -45,6 +45,16 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje klase do dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /ClassManager
+        ///     {
+        ///        "userClass": 2, - Numer klasy
+        ///        "userClassProfile": "PZ" - Profil klasy
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddClass(UserClass userClass)
@@ -55,8 +65,18 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje klase w dzienniku
+        /// Aktualizuje klase o wskazanym id w dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /ClassManager/{id}
+        ///     {
+        ///        "userClass": 2, - Numer klasy
+        ///        "userClassProfile": "PZ" - Profil klasy
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
@@ -68,7 +88,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Usuwa klase z dziennika
+        /// Usuwa klase o wskazanym id z dziennika
         /// </summary>
         [HttpDelete]
         [Route("{id:int}")]

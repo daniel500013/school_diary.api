@@ -30,7 +30,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Zwraca informacje o roli użytkownika
+        /// Zwraca informacje o roli użytkownika przez uuid
         /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
@@ -45,6 +45,15 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje role do dziennika
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Role
+        ///     {
+        ///        "name": "SuperAdmin" - nazwa nowej roli
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRole(Role role)
@@ -55,8 +64,18 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje role w dzienniku
+        /// Aktualizuje role o wskazanym id w dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Role/{id}
+        ///     {
+        ///        "id": 1, - id roli do aktualizacji
+        ///        "name": "SuperAdmin" - nazwa nowej roli
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
@@ -68,7 +87,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Usuwa role z dziennika
+        /// Usuwa role o wskazanym id z dziennika
         /// </summary>
         [HttpDelete]
         [Route("{id:int}")]

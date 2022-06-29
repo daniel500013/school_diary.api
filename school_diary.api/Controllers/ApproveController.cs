@@ -30,7 +30,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Zwraca pochwały użytkownika o wskazanym uuid
+        /// Zwraca pochwały użytkownika przez uuid
         /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
@@ -45,6 +45,17 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje pochwałe do dziennika
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Approve
+        ///     {
+        ///        "positive": true,
+        ///        "description": "Testowa pozytywna pochwała dla ucznia przypisanego do lekcji o id równym 1",
+        ///        "lessonId": 1
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> AddApprove(Approve approve)
@@ -55,8 +66,19 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje pochwałe w dzienniku
+        /// Aktualizuje pochwałe o wskazanym id w dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Approve/{id}
+        ///     {
+        ///        "positive": true,
+        ///        "description": "Testowa pozytywna pochwała dla ucznia przypisanego do lekcji o id równym 1",
+        ///        "lessonId": 1
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
@@ -68,7 +90,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Usuwa pochwałe z dziennika
+        /// Usuwa pochwałe o wskazanym id z dziennika
         /// </summary>
         [HttpDelete]
         [Route("{id:int}")]

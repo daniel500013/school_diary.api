@@ -71,6 +71,18 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje ocene do dziennika
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Grade
+        ///     {
+        ///        "name": "4", - Ocena
+        ///        "description": "Literatura Polska", - Opis oceny
+        ///        "lessonId": 1, - Id lekcji przypisanej do oceny
+        ///        "userClassId": 1 - Id klasy przypisane do oceny
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles = "Teacher,Tutor,Admin,LocalAdmin")]
         public async Task<IActionResult> AddGrade(Grade grade)
@@ -81,8 +93,20 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje ocene w dzienniku
+        /// Aktualizuje ocene o wskazanym id w dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Grade/{id}
+        ///     {
+        ///        "name": "4", - Ocena
+        ///        "description": "Literatura Polska", - Opis oceny
+        ///        "lessonId": 1, - Id lekcji przypisanej do oceny
+        ///        "userClassId": 1 - Id klasy przypisane do oceny
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Teacher,Tutor,Admin,LocalAdmin")]
@@ -94,7 +118,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Usuwa ocene z dziennika
+        /// Usuwa ocene o wskazanym id z dziennika
         /// </summary>
         [HttpDelete]
         [Route("{id:int}")]

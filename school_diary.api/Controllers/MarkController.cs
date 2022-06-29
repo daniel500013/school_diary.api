@@ -30,7 +30,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Zwraca informacje o wszystkich obecnościach ucznia
+        /// Zwraca informacje o wszystkich obecnościach ucznia przez uuid
         /// </summary>
         [HttpPost]
         [Route("{uuid:guid}")]
@@ -45,6 +45,17 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje obecność do dziennika
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Mark
+        ///     {
+        ///        "present": false, - obecność ucznia
+        ///        "date": "2020-03-29T23:09:07.721Z", - Data obecności ucznia
+        ///        "lessonId": 1 - Id lekcji na której uczeń był obecny
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles = "Teacher,Tutor")]
         public async Task<IActionResult> AddMark(Marks mark)
@@ -55,8 +66,18 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje obecność w dzienniku
+        /// Aktualizuje obecność o wskazanym id w dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Mark/{id}
+        ///     {
+        ///        "id": 1, - id obecności do aktualizacji
+        ///        "present": false - obecność ucznia
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Teacher,Tutor")]
@@ -68,7 +89,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Usuwa obecność z dzienniku
+        /// Usuwa obecność o wskazanym id z dzienniku
         /// </summary>
         [HttpDelete]
         [Route("{id:int}")]

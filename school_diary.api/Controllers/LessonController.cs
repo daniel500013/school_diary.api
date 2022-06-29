@@ -30,7 +30,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Zwraca informacje o wszystkich lekcjach użytkownika
+        /// Zwraca informacje o wszystkich lekcjach użytkownika przez uuid
         /// </summary>
         [HttpPost]
         [Route("{uuid}")]
@@ -45,6 +45,16 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje lekcje do dziennika
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Lesson
+        ///     {
+        ///        "name": "Matematyka", - Nazwa lekcji którą chcemy utworzyć
+        ///        "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6" - uuid użytkownika do którego chcemy przypisać lekcje
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> CreateLesson(Lesson lesson)
@@ -55,8 +65,18 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje lekcje w dzienniku
+        /// Aktualizuje nazwe lekcji o wskazanym id w dzienniku
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Lesson/{id}
+        ///     {
+        ///        "id": 1, - id lekcji którą chcemy zaktualizować
+        ///        "lesson": "Polski" - nowa nazwa lekcji
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "LocalAdmin,Admin")]
@@ -68,7 +88,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Usuwa lekcje z dziennika
+        /// Usuwa lekcje o wskazanym id z dziennika
         /// </summary>
         [HttpDelete]
         [Route("{id:int}")]

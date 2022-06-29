@@ -31,6 +31,16 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Po zalogowaniu zwraca token autoryzacyjny
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Account/login
+        ///     {
+        ///        "email": "admin@admin.com",
+        ///        "password": "admin"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] Login user)
@@ -43,6 +53,16 @@ namespace school_diary.api.Controllers
         /// <summary>
         /// Dodaje użytkownika do bazy danych
         /// </summary>
+        /// <remarks>
+        /// Przykładowe zapytanie:
+        ///
+        ///     POST /Account/register
+        ///     {
+        ///        "email": "user@user.com",
+        ///        "password": "user"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] User user)
