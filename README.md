@@ -1,4 +1,4 @@
-![](/git/image.png)
+![](/git/image2.png)
 # API Dziennika Elektronicznego
 Projekt API Dziennika Elektronicznego stworzony w celach edukacyjnych
 
