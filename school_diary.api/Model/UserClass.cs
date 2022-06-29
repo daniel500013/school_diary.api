@@ -3,6 +3,7 @@
     public class UserClass
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         [Required]
         [Range(1, 8)]

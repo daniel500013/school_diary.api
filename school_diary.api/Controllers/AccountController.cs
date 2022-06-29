@@ -16,6 +16,9 @@ namespace school_diary.api.Controllers
             this.accountService = accountService;
         }
 
+        /// <summary>
+        /// Zwraca dane wszystkich użytkowników
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
@@ -25,6 +28,9 @@ namespace school_diary.api.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// Po zalogowaniu zwraca token autoryzacyjny
+        /// </summary>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] User user)
@@ -34,6 +40,9 @@ namespace school_diary.api.Controllers
             return Ok(token);
         }
 
+        /// <summary>
+        /// Dodaje użytkownika do bazy danych
+        /// </summary>
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] User user)

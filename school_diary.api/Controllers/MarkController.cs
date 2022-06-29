@@ -17,6 +17,9 @@ namespace school_diary.api.Controllers
             this.markService = markService;
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich obecnościach uczniów
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllMarks()
@@ -26,6 +29,9 @@ namespace school_diary.api.Controllers
             return Ok(marks);
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich obecnościach ucznia
+        /// </summary>
         [HttpPost]
         [Route("{uuid:guid}")]
         [Authorize(Roles = "Tutor")]
@@ -36,8 +42,10 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Dodaje obecność do dziennika
+        /// </summary>
         [HttpPost]
-        [Route("add")]
         [Authorize(Roles = "Teacher,Tutor")]
         public async Task<IActionResult> AddMark(Marks mark)
         {
@@ -46,8 +54,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Aktualizuje obecność w dzienniku
+        /// </summary>
         [HttpPut]
-        [Route("change/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Teacher,Tutor")]
         public async Task<IActionResult> PutMark(int id, bool present)
         {
@@ -56,8 +67,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa obecność z dzienniku
+        /// </summary>
         [HttpDelete]
-        [Route("delete/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMark(int id)
         {

@@ -3,6 +3,7 @@
     public class Marks
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         [Required]
         public bool Present { get; set; }
@@ -10,6 +11,7 @@
         public DateTime Date { get; set; }
 
         public int LessonId { get; set; }
+        [JsonIgnore]
         public virtual Lesson? Lesson { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace school_diary.api.Controllers
             this.roleService = roleService;
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich rolach w dzienniku
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllRoles()
@@ -26,6 +29,9 @@ namespace school_diary.api.Controllers
             return Ok(roles);
         }
 
+        /// <summary>
+        /// Zwraca informacje o roli użytkownika
+        /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
         [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]
@@ -36,8 +42,10 @@ namespace school_diary.api.Controllers
             return Ok(userRole);
         }
 
+        /// <summary>
+        /// Dodaje role do dziennika
+        /// </summary>
         [HttpPost]
-        [Route("add")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRole(Role role)
         {
@@ -46,8 +54,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Aktualizuje role w dzienniku
+        /// </summary>
         [HttpPut]
-        [Route("change/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutRole(int id, Role role)
         {
@@ -56,8 +67,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa role z dziennika
+        /// </summary>
         [HttpDelete]
-        [Route("delete")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole(int id)
         {

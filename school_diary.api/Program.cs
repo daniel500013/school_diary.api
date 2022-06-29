@@ -2,6 +2,7 @@
 using Microsoft.OpenApi.Models;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,9 @@ builder.Services.AddSwaggerGen(c =>
           {
               { securitySchema, new[] { "Bearer" } }
           });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 var auth = new authSettings();

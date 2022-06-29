@@ -17,6 +17,9 @@ namespace school_diary.api.Controllers
             this.homeService = homeService;
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich lekcjach w dzienniku
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllLessons()
@@ -26,6 +29,9 @@ namespace school_diary.api.Controllers
             return Ok(listOfLessons);
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich lekcjach użytkownika
+        /// </summary>
         [HttpPost]
         [Route("{uuid}")]
         [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]
@@ -33,13 +39,13 @@ namespace school_diary.api.Controllers
         {
             var listOfLessons = await homeService.GetUserLessons(uuid.ToString());
 
-            // TODO - Add viewmodel to return
-
             return Ok(listOfLessons);
         }
 
+        /// <summary>
+        /// Dodaje lekcje do dziennika
+        /// </summary>
         [HttpPost]
-        [Route("add")]
         [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> CreateLesson(Lesson lesson)
         {
@@ -48,8 +54,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Aktualizuje lekcje w dzienniku
+        /// </summary>
         [HttpPut]
-        [Route("change/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> PutLesson(int id, string lesson)
         {
@@ -58,8 +67,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa lekcje z dziennika
+        /// </summary>
         [HttpDelete]
-        [Route("delete/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> DeleteLesson(int id)
         {

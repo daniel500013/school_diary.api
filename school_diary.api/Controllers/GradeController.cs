@@ -17,6 +17,9 @@ namespace school_diary.api.Controllers
             this.gradeService = gradeService;
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich ocenach z dziennika
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllGrades()
@@ -26,9 +29,12 @@ namespace school_diary.api.Controllers
             return Ok(grades);
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich ocenach w danej klasie przez ClassId
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
-        [Route("class/{ClassId:int}")]
+        [Route("{ClassId:int}")]
         public async Task<IActionResult> GetClassGrades(int ClassId)
         {
             var grades = await gradeService.GetClassGrades(ClassId);
@@ -36,9 +42,12 @@ namespace school_diary.api.Controllers
             return Ok(grades);
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich ocenach z danego przedmiotu przez LessonId w danej klasie przez ClassId
+        /// </summary>
         [HttpGet]
-        //[Authorize(Roles = "Tutor,LocalAdmin,Admin")]
-        [Route("class/{ClassId:int}/lesson/{LessonId:int}")]
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Route("{LessonId:int}/{ClassId:int}")]
         public async Task<IActionResult> GetLessonClassGrades(int LessonId, int ClassId)
         {
             var grades = await gradeService.GetLessonClassGrades(ClassId, LessonId);
@@ -46,6 +55,9 @@ namespace school_diary.api.Controllers
             return Ok(grades);
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich ocenach danego ucznia przez uuid
+        /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
         [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]
@@ -56,8 +68,10 @@ namespace school_diary.api.Controllers
             return Ok(userGrades);
         }
 
+        /// <summary>
+        /// Dodaje ocene do dziennika
+        /// </summary>
         [HttpPost]
-        [Route("add")]
         [Authorize(Roles = "Teacher,Tutor,Admin,LocalAdmin")]
         public async Task<IActionResult> AddGrade(Grade grade)
         {
@@ -66,8 +80,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Aktualizuje ocene w dzienniku
+        /// </summary>
         [HttpPut]
-        [Route("change/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Teacher,Tutor,Admin,LocalAdmin")]
         public async Task<IActionResult> PutGrade(int id, Grade grade)
         {
@@ -76,8 +93,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa ocene z dziennika
+        /// </summary>
         [HttpDelete]
-        [Route("delete/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Teacher,Tutor,Admin,LocalAdmin")]
         public async Task<IActionResult> DeleteGrade(int id)
         {

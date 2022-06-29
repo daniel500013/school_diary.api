@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +25,7 @@
     <Using Include="school_diary.api" />
     <Using Include="System.ComponentModel.DataAnnotations" />
     <Using Include="System.Text" />
+    <Using Include="System.Text.Json.Serialization" />
   </ItemGroup>
 
 </Project>

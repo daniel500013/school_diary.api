@@ -17,6 +17,9 @@ namespace school_diary.api.Controllers
             this.approveService = approveService;
         }
 
+        /// <summary>
+        /// Zwraca pochwały wszystkich użytkowników
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllApproves()
@@ -26,6 +29,9 @@ namespace school_diary.api.Controllers
             return Ok(approves);
         }
 
+        /// <summary>
+        /// Zwraca pochwały użytkownika o wskazanym uuid
+        /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
         [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
@@ -36,8 +42,10 @@ namespace school_diary.api.Controllers
             return Ok(approves);
         }
 
+        /// <summary>
+        /// Dodaje pochwałe do dziennika
+        /// </summary>
         [HttpPost]
-        [Route("add")]
         [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> AddApprove(Approve approve)
         {
@@ -46,8 +54,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Aktualizuje pochwałe w dzienniku
+        /// </summary>
         [HttpPut]
-        [Route("change/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> PutApprove(int id, Approve approve)
         {
@@ -56,8 +67,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa pochwałe z dziennika
+        /// </summary>
         [HttpDelete]
-        [Route("delete/{id:int}")]
+        [Route("{id:int}")]
         [Authorize(Roles = "Teacher,LocalAdmin,Admin")]
         public async Task<IActionResult> DeleteApprove(int id)
         {

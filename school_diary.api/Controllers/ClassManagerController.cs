@@ -17,6 +17,9 @@ namespace school_diary.api.Controllers
             this.classManagerService = classManagerService;
         }
 
+        /// <summary>
+        /// Zwraca informacje o wszystkich klasach w dzienniku
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllClasses()
@@ -26,6 +29,9 @@ namespace school_diary.api.Controllers
             return Ok(allClasses);
         }
 
+        /// <summary>
+        /// Zwraca informacje o klasie użytkownika przez jego uuid
+        /// </summary>
         [HttpPost]
         [Route("{uuid:Guid}")]
         [Authorize(Roles = "Student,Teacher,LocalAdmin,Admin")]
@@ -36,8 +42,10 @@ namespace school_diary.api.Controllers
             return Ok(getUserClass);
         }
 
+        /// <summary>
+        /// Dodaje klase do dzienniku
+        /// </summary>
         [HttpPost]
-        [Route("add")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddClass(UserClass userClass)
         {
@@ -46,7 +54,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Aktualizuje klase w dzienniku
+        /// </summary>
         [HttpPut]
+        [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutClass(int id, UserClass userClass)
         {
@@ -55,7 +67,11 @@ namespace school_diary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa klase z dziennika
+        /// </summary>
         [HttpDelete]
+        [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteClass(int id)
         {

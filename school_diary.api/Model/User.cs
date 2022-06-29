@@ -3,6 +3,7 @@
     public class User
     {
         [Key]
+        [JsonIgnore]
         public Guid uuid { get; set; }
         [Required]
         public string email { get; set; }
@@ -19,10 +20,14 @@
         public string? zipCode { get; set; }
         public string? address { get; set; }
 
+        [JsonIgnore]
         public int RoleId { get; set; } = 1;
+        [JsonIgnore]
         public virtual Role? Role { get; set; }
 
+        [JsonIgnore]
         public int userClassId { get; set; } = 1;
+        [JsonIgnore]
         public virtual UserClass? userClass { get; set; }
     }
 }
