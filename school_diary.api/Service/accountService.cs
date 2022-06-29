@@ -18,6 +18,13 @@ namespace school_diary.api.Service
             this.auth = auth;
         }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await diaryDbContext.user.ToListAsync();
+
+            return users;
+        }
+
         public async Task Register(User user)
         {
             if (user is null)

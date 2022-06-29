@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
 
@@ -13,6 +14,15 @@ namespace school_diary.api.Controllers
         public AccountController(accountService accountService)
         {
             this.accountService = accountService;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var user = await accountService.GetAllUsers();
+
+            return Ok(user);
         }
 
         [HttpPost]
