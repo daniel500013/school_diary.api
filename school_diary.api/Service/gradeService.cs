@@ -21,7 +21,8 @@ namespace school_diary.api.Service
         public async Task<List<Grade>> GetClassGrades(int classId)
         {
             var grades = await diaryDbContext.grades
-                .Where(x => x.UserClassId == classId)
+                .Include(x => x.Lesson)
+                .Where(x => x.Lesson.User.userClass.Id == classId)
                 .ToListAsync();
 
             if (grades.Count == 0)
@@ -45,7 +46,7 @@ namespace school_diary.api.Service
             var grades = await diaryDbContext.grades
                 .Include(x => x.Lesson)
                 .Where(x => x.Lesson.Name == getLessonName.Name)
-                .Where(x => x.UserClassId == classId)
+                .Where(x => x.Lesson.User.userClass.Id == classId)
                 .ToListAsync();
 
             if (grades.Count == 0)
@@ -65,7 +66,7 @@ namespace school_diary.api.Service
 
             var userGrades = await diaryDbContext.grades
                 .Include(x => x.Lesson)
-                .Where(x => x.Lesson.UserId.ToString() == uuid)
+                .Where(x => x.Lesson.FK_UserUUID.ToString() == uuid)
                 .ToListAsync();
 
             if (userGrades.Count == 0)

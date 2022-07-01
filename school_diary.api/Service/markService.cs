@@ -22,7 +22,7 @@ namespace school_diary.api.Service
         {
             var marks = await diaryDbContext.marks
                 .Include(x => x.Lesson)
-                .Where(x => x.Lesson.UserId.ToString() == uuid)
+                .Where(x => x.Lesson.FK_UserUUID.ToString() == uuid)
                 .ToListAsync();
 
             return marks;

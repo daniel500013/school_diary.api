@@ -26,7 +26,8 @@ namespace school_diary.api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("approveID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -34,7 +35,7 @@ namespace school_diary.api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LessonId")
+                    b.Property<int>("FK_LessonId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Positive")
@@ -42,16 +43,17 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId");
+                    b.HasIndex("FK_LessonId");
 
-                    b.ToTable("approves", (string)null);
+                    b.ToTable("approves");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Grade", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("gradeID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -59,59 +61,56 @@ namespace school_diary.api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LessonId")
+                    b.Property<int>("FK_LessonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserClassId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId");
+                    b.HasIndex("FK_LessonId");
 
-                    b.HasIndex("UserClassId");
-
-                    b.ToTable("grades", (string)null);
+                    b.ToTable("grades");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Lesson", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("lessonID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("FK_UserUUID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("FK_UserUUID");
 
-                    b.ToTable("lesson", (string)null);
+                    b.ToTable("lesson");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Marks", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("marksID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LessonId")
+                    b.Property<int>("FK_LessonId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Present")
@@ -119,16 +118,17 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId");
+                    b.HasIndex("FK_LessonId");
 
-                    b.ToTable("marks", (string)null);
+                    b.ToTable("marks");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("roleID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -138,7 +138,7 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("role", (string)null);
+                    b.ToTable("role");
 
                     b.HasData(
                         new
@@ -172,9 +172,13 @@ namespace school_diary.api.Migrations
                 {
                     b.Property<Guid>("uuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("userUUID");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("FK_RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FK_userClassId")
                         .HasColumnType("int");
 
                     b.Property<string>("address")
@@ -208,30 +212,27 @@ namespace school_diary.api.Migrations
                     b.Property<string>("state")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("userClassId")
-                        .HasColumnType("int");
-
                     b.Property<string>("zipCode")
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
                     b.HasKey("uuid");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("FK_RoleId");
 
-                    b.HasIndex("userClassId");
+                    b.HasIndex("FK_userClassId");
 
-                    b.ToTable("user", (string)null);
+                    b.ToTable("user");
 
                     b.HasData(
                         new
                         {
-                            uuid = new Guid("217d96bb-cdbc-44e7-ac40-5b6ff97a7d40"),
-                            RoleId = 5,
+                            uuid = new Guid("f72a1cac-7bd8-4d46-9bb0-34e136d6336d"),
+                            FK_RoleId = 5,
+                            FK_userClassId = 1,
                             email = "admin@admin.com",
                             hashPassword = "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==",
-                            password = "",
-                            userClassId = 1
+                            password = ""
                         });
                 });
 
@@ -239,7 +240,8 @@ namespace school_diary.api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("userclassID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -252,7 +254,7 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("userClass", (string)null);
+                    b.ToTable("userClass");
 
                     b.HasData(
                         new
@@ -267,7 +269,7 @@ namespace school_diary.api.Migrations
                 {
                     b.HasOne("school_diary.api.Model.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("LessonId")
+                        .HasForeignKey("FK_LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -278,24 +280,18 @@ namespace school_diary.api.Migrations
                 {
                     b.HasOne("school_diary.api.Model.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("LessonId")
+                        .HasForeignKey("FK_LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("school_diary.api.Model.UserClass", "UserClass")
-                        .WithMany()
-                        .HasForeignKey("UserClassId");
-
                     b.Navigation("Lesson");
-
-                    b.Navigation("UserClass");
                 });
 
             modelBuilder.Entity("school_diary.api.Model.Lesson", b =>
                 {
                     b.HasOne("school_diary.api.Model.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("FK_UserUUID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -306,7 +302,7 @@ namespace school_diary.api.Migrations
                 {
                     b.HasOne("school_diary.api.Model.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("LessonId")
+                        .HasForeignKey("FK_LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -317,13 +313,13 @@ namespace school_diary.api.Migrations
                 {
                     b.HasOne("school_diary.api.Model.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("FK_RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("school_diary.api.Model.UserClass", "userClass")
                         .WithMany()
-                        .HasForeignKey("userClassId")
+                        .HasForeignKey("FK_userClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

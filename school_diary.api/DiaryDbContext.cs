@@ -98,8 +98,8 @@ namespace school_diary.api
                     city = null,
                     zipCode = null,
                     address = null,
-                    RoleId = 5,
-                    userClassId = 1
+                    FK_RoleId = 5,
+                    FK_userClassId = 1
                 });
         }
     }

@@ -1,9 +1,12 @@
-﻿namespace school_diary.api.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace school_diary.api.Model
 {
     public class User
     {
         [Key]
         [JsonIgnore]
+        [Column("userUUID")]
         public Guid uuid { get; set; }
         [Required]
         public string email { get; set; }
@@ -21,13 +24,15 @@
         public string? address { get; set; }
 
         [JsonIgnore]
-        public int RoleId { get; set; } = 1;
+        public int FK_RoleId { get; set; } = 1;
         [JsonIgnore]
+        [ForeignKey("FK_RoleId")]
         public virtual Role? Role { get; set; }
 
         [JsonIgnore]
-        public int userClassId { get; set; } = 1;
+        public int FK_userClassId { get; set; } = 1;
         [JsonIgnore]
+        [ForeignKey("FK_userClassId")]
         public virtual UserClass? userClass { get; set; }
     }
 }

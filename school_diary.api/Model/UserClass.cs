@@ -1,9 +1,12 @@
-﻿namespace school_diary.api.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace school_diary.api.Model
 {
     public class UserClass
     {
         [Key]
         [JsonIgnore]
+        [Column("userclassID")]
         public int Id { get; set; }
         [Required]
         [Range(1, 8)]

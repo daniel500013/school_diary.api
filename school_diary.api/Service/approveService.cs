@@ -27,7 +27,7 @@ namespace school_diary.api.Service
 
             var userApprove = await diaryDbContext.approves
                 .Include(x => x.Lesson)
-                .Where(x => x.Lesson.UserId.ToString() == uuid)
+                .Where(x => x.Lesson.FK_UserUUID.ToString() == uuid)
                 .ToListAsync();
 
             if (userApprove.Count == 0)

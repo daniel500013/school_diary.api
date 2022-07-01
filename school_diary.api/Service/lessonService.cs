@@ -22,7 +22,7 @@ namespace school_diary.api.Service
         {
             var userLessons = await diaryDbContext.lesson
                 .Include(x => x.User)
-                .Where(x => x.UserId.ToString() == uuid)
+                .Where(x => x.FK_UserUUID.ToString() == uuid)
                 .ToListAsync();
 
             if (userLessons is null)
