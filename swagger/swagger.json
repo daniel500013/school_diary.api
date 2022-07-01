@@ -1,0 +1,1137 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "School Diary API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Account": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Zwraca dane wszystkich użytkowników",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Account/login": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Po zalogowaniu zwraca token autoryzacyjny JWT",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Account/login\r\n    {\r\n       \"email\": \"admin@admin.com\",\r\n       \"password\": \"admin\"\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Account/register": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Dodaje użytkownika do bazy danych",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Account/register\r\n    {\r\n       \"email\": \"user@user.com\",\r\n       \"password\": \"user\"\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Approve": {
+      "get": {
+        "tags": [
+          "Approve"
+        ],
+        "summary": "Zwraca pochwały wszystkich użytkowników",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Approve"
+        ],
+        "summary": "Dodaje pochwałe do dziennika",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Approve\r\n    {\r\n       \"positive\": true,\r\n       \"description\": \"Testowa pozytywna pochwała dla ucznia przypisanego do lekcji o id równym 1\",\r\n       \"FK_lessonId\": 1\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approve"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approve"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approve"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Approve/{uuid}": {
+      "post": {
+        "tags": [
+          "Approve"
+        ],
+        "summary": "Zwraca pochwały użytkownika przez uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Approve/{id}": {
+      "put": {
+        "tags": [
+          "Approve"
+        ],
+        "summary": "Aktualizuje pochwałe o wskazanym id w dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Approve/{id}\r\n    {\r\n       \"positive\": true,\r\n       \"description\": \"Testowa pozytywna pochwała dla ucznia przypisanego do lekcji o id równym 1\",\r\n       \"FK_lessonId\": 1\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approve"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approve"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approve"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Approve"
+        ],
+        "summary": "Usuwa pochwałe o wskazanym id z dziennika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClassManager": {
+      "get": {
+        "tags": [
+          "ClassManager"
+        ],
+        "summary": "Zwraca informacje o wszystkich klasach w dzienniku",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ClassManager"
+        ],
+        "summary": "Dodaje klase do dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /ClassManager\r\n    {\r\n       \"userClass\": 2, - Numer klasy\r\n       \"userClassProfile\": \"PZ\" - Profil klasy\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserClass"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserClass"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserClass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClassManager/{uuid}": {
+      "post": {
+        "tags": [
+          "ClassManager"
+        ],
+        "summary": "Zwraca informacje o klasie użytkownika przez uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClassManager/{id}": {
+      "put": {
+        "tags": [
+          "ClassManager"
+        ],
+        "summary": "Aktualizuje klase o wskazanym id w dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /ClassManager/{id}\r\n    {\r\n       \"userClass\": 2, - Numer klasy\r\n       \"userClassProfile\": \"PZ\" - Profil klasy\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserClass"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserClass"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserClass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ClassManager"
+        ],
+        "summary": "Usuwa klase o wskazanym id z dziennika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Grade": {
+      "get": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Zwraca informacje o wszystkich ocenach z dziennika",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Dodaje ocene do dziennika",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Grade\r\n    {\r\n       \"name\": \"4\", - Ocena\r\n       \"description\": \"Literatura Polska\", - Opis oceny\r\n       \"FK_lessonId\": 1 - Id lekcji przypisanej do oceny\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Grade/{ClassId}": {
+      "get": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Zwraca informacje o wszystkich ocenach w danej klasie przez ClassId",
+        "parameters": [
+          {
+            "name": "ClassId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Grade/{LessonId}/{ClassId}": {
+      "get": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Zwraca informacje o wszystkich ocenach z danego przedmiotu przez LessonId w danej klasie przez ClassId",
+        "parameters": [
+          {
+            "name": "LessonId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ClassId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Grade/{uuid}": {
+      "post": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Zwraca informacje o wszystkich ocenach danego ucznia przez uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Grade/{id}": {
+      "put": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Aktualizuje ocene o wskazanym id w dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Grade/{id}\r\n    {\r\n       \"name\": \"4\", - Ocena\r\n       \"description\": \"Literatura Polska\", - Opis oceny\r\n       \"FK_lessonId\": 1, - Id lekcji przypisanej do oceny\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Grade"
+        ],
+        "summary": "Usuwa ocene o wskazanym id z dziennika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Lesson": {
+      "get": {
+        "tags": [
+          "Lesson"
+        ],
+        "summary": "Zwraca informacje o wszystkich lekcjach w dzienniku",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lesson"
+        ],
+        "summary": "Dodaje lekcje do dziennika",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Lesson\r\n    {\r\n       \"name\": \"Matematyka\", - Nazwa lekcji którą chcemy utworzyć\r\n       \"FK_userId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\" - uuid użytkownika do którego chcemy przypisać lekcje\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lesson"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lesson"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lesson"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Lesson/{uuid}": {
+      "post": {
+        "tags": [
+          "Lesson"
+        ],
+        "summary": "Zwraca informacje o wszystkich lekcjach użytkownika przez uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Lesson/{id}": {
+      "put": {
+        "tags": [
+          "Lesson"
+        ],
+        "summary": "Aktualizuje nazwe lekcji o wskazanym id w dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Lesson/{id}\r\n    {\r\n       \"id\": 1, - id lekcji którą chcemy zaktualizować\r\n       \"lesson\": \"Polski\" - nowa nazwa lekcji\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "lesson",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lesson"
+        ],
+        "summary": "Usuwa lekcje o wskazanym id z dziennika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Mark": {
+      "get": {
+        "tags": [
+          "Mark"
+        ],
+        "summary": "Zwraca informacje o wszystkich obecnościach uczniów",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mark"
+        ],
+        "summary": "Dodaje obecność do dziennika",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Mark\r\n    {\r\n       \"present\": false, - obecność ucznia\r\n       \"date\": \"2020-03-29T23:09:07.721Z\", - Data obecności ucznia\r\n       \"FK_lessonId\": 1 - Id lekcji na której uczeń był obecny\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Marks"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Marks"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Marks"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Mark/{uuid}": {
+      "post": {
+        "tags": [
+          "Mark"
+        ],
+        "summary": "Zwraca informacje o wszystkich obecnościach ucznia przez uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Mark/{id}": {
+      "put": {
+        "tags": [
+          "Mark"
+        ],
+        "summary": "Aktualizuje obecność o wskazanym id w dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Mark/{id}\r\n    {\r\n       \"id\": 1, - id obecności do aktualizacji\r\n       \"present\": false - obecność ucznia\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "present",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mark"
+        ],
+        "summary": "Usuwa obecność o wskazanym id z dzienniku",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Role": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Zwraca informacje o wszystkich rolach w dzienniku",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Dodaje role do dziennika",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Role\r\n    {\r\n       \"name\": \"SuperAdmin\" - nazwa nowej roli\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Role/{uuid}": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Zwraca informacje o roli użytkownika przez uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Role/{id}": {
+      "put": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Aktualizuje role o wskazanym id w dzienniku",
+        "description": "Przykładowe zapytanie:\r\n            \r\n    POST /Role/{id}\r\n    {\r\n       \"id\": 1, - id roli do aktualizacji\r\n       \"name\": \"SuperAdmin\" - nazwa nowej roli\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Usuwa role o wskazanym id z dziennika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Approve": {
+        "required": [
+          "positive"
+        ],
+        "type": "object",
+        "properties": {
+          "positive": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "fK_LessonId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Grade": {
+        "required": [
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fK_LessonId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Lesson": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "fK_UserUUID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Marks": {
+        "required": [
+          "date",
+          "present"
+        ],
+        "type": "object",
+        "properties": {
+          "present": {
+            "type": "boolean"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fK_LessonId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "hashPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "maxLength": 9,
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "zipCode": {
+            "maxLength": 6,
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserClass": {
+        "required": [
+          "userClass"
+        ],
+        "type": "object",
+        "properties": {
+          "userClass": {
+            "maximum": 8,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "userClassProfile": {
+            "maxLength": 10,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Using the Authorization header with the Bearer scheme.",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [
+        "Bearer"
+      ]
+    }
+  ]
+}
