@@ -52,7 +52,7 @@ namespace school_diary.api.Controllers
         ///     {
         ///        "present": false, - obecność ucznia
         ///        "date": "2020-03-29T23:09:07.721Z", - Data obecności ucznia
-        ///        "lessonId": 1 - Id lekcji na której uczeń był obecny
+        ///        "FK_lessonId": 1 - Id lekcji na której uczeń był obecny
         ///     }
         ///
         /// </remarks>

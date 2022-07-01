@@ -29,7 +29,7 @@ namespace school_diary.api.Controllers
         }
 
         /// <summary>
-        /// Po zalogowaniu zwraca token autoryzacyjny
+        /// Po zalogowaniu zwraca token autoryzacyjny JWT
         /// </summary>
         /// <remarks>
         /// Przykładowe zapytanie:

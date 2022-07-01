@@ -51,7 +51,7 @@ namespace school_diary.api.Controllers
         ///     POST /Lesson
         ///     {
         ///        "name": "Matematyka", - Nazwa lekcji którą chcemy utworzyć
-        ///        "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6" - uuid użytkownika do którego chcemy przypisać lekcje
+        ///        "FK_userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6" - uuid użytkownika do którego chcemy przypisać lekcje
         ///     }
         ///
         /// </remarks>

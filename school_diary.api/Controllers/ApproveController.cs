@@ -52,7 +52,7 @@ namespace school_diary.api.Controllers
         ///     {
         ///        "positive": true,
         ///        "description": "Testowa pozytywna pochwała dla ucznia przypisanego do lekcji o id równym 1",
-        ///        "lessonId": 1
+        ///        "FK_lessonId": 1
         ///     }
         ///
         /// </remarks>
@@ -75,7 +75,7 @@ namespace school_diary.api.Controllers
         ///     {
         ///        "positive": true,
         ///        "description": "Testowa pozytywna pochwała dla ucznia przypisanego do lekcji o id równym 1",
-        ///        "lessonId": 1
+        ///        "FK_lessonId": 1
         ///     }
         ///
         /// </remarks>

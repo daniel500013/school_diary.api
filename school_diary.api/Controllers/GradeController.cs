@@ -78,8 +78,7 @@ namespace school_diary.api.Controllers
         ///     {
         ///        "name": "4", - Ocena
         ///        "description": "Literatura Polska", - Opis oceny
-        ///        "lessonId": 1, - Id lekcji przypisanej do oceny
-        ///        "userClassId": 1 - Id klasy przypisane do oceny
+        ///        "FK_lessonId": 1 - Id lekcji przypisanej do oceny
         ///     }
         ///
         /// </remarks>
@@ -102,8 +101,7 @@ namespace school_diary.api.Controllers
         ///     {
         ///        "name": "4", - Ocena
         ///        "description": "Literatura Polska", - Opis oceny
-        ///        "lessonId": 1, - Id lekcji przypisanej do oceny
-        ///        "userClassId": 1 - Id klasy przypisane do oceny
+        ///        "FK_lessonId": 1, - Id lekcji przypisanej do oceny
         ///     }
         ///
         /// </remarks>
