@@ -1,8 +1,9 @@
 ﻿using school_diary.api.Model;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Service
 {
-    public class classManagerService
+    public class classManagerService : IClassManagerService
     {
         private DiaryDbContext diaryDbContext;
         public classManagerService(DiaryDbContext diaryDbContext)

@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using school_diary.api.Model;
+using school_diary.api.Service.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace school_diary.api.Service
 {
-    public class accountService
+    public class accountService : IAccountService
     {
         private readonly DiaryDbContext diaryDbContext;
         private readonly IPasswordHasher<User> passwordHasher;

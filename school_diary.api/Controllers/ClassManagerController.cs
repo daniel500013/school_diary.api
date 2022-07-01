@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Controllers
 {
@@ -10,9 +11,9 @@ namespace school_diary.api.Controllers
     [Authorize]
     public class ClassManagerController : ControllerBase
     {
-        private classManagerService classManagerService;
+        private IClassManagerService classManagerService;
 
-        public ClassManagerController(classManagerService classManagerService)
+        public ClassManagerController(IClassManagerService classManagerService)
         {
             this.classManagerService = classManagerService;
         }

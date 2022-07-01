@@ -2,6 +2,7 @@
 using Microsoft.OpenApi.Models;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using school_diary.api.Service.Interfaces;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,13 +65,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddScoped<accountService>();
-builder.Services.AddScoped<lessonService>();
-builder.Services.AddScoped<markService>();
-builder.Services.AddScoped<gradeService>();
-builder.Services.AddScoped<roleService>();
-builder.Services.AddScoped<classManagerService>();
-builder.Services.AddScoped<approveService>();
+builder.Services.AddScoped<IAccountService, accountService>();
+builder.Services.AddScoped<ILessonService, lessonService>();
+builder.Services.AddScoped<IMarkService, markService>();
+builder.Services.AddScoped<IGradeService, gradeService>();
+builder.Services.AddScoped<IRoleService, roleService>();
+builder.Services.AddScoped<IClassManagerService, classManagerService>();
+builder.Services.AddScoped<IApproveService, approveService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IPasswordHasher<Login>, PasswordHasher<Login>>();
 

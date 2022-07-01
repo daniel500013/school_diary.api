@@ -1,8 +1,9 @@
 ﻿using school_diary.api.Model;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Service
 {
-    public class roleService
+    public class roleService : IRoleService
     {
         private DiaryDbContext diaryDbContext;
         public roleService(DiaryDbContext diaryDbContext)

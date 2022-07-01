@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Controllers
 {
@@ -10,9 +11,9 @@ namespace school_diary.api.Controllers
     [Authorize]
     public class ApproveController : ControllerBase
     {
-        private approveService approveService;
+        private IApproveService approveService;
 
-        public ApproveController(approveService approveService)
+        public ApproveController(IApproveService approveService)
         {
             this.approveService = approveService;
         }

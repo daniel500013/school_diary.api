@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Controllers
 {
@@ -10,9 +11,9 @@ namespace school_diary.api.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleController : ControllerBase
     {
-        private roleService roleService;
+        private IRoleService roleService;
 
-        public RoleController(roleService roleService)
+        public RoleController(IRoleService roleService)
         {
             this.roleService = roleService;
         }

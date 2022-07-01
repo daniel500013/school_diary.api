@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Controllers
 {
@@ -10,9 +11,9 @@ namespace school_diary.api.Controllers
     [Authorize]
     public class GradeController : ControllerBase
     {
-        private gradeService gradeService;
+        private IGradeService gradeService;
 
-        public GradeController(gradeService gradeService)
+        public GradeController(IGradeService gradeService)
         {
             this.gradeService = gradeService;
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using school_diary.api.Model;
 using school_diary.api.Service;
+using school_diary.api.Service.Interfaces;
 
 namespace school_diary.api.Controllers
 {
@@ -9,9 +10,9 @@ namespace school_diary.api.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private accountService accountService;
+        private IAccountService accountService;
 
-        public AccountController(accountService accountService)
+        public AccountController(IAccountService accountService)
         {
             this.accountService = accountService;
         }
