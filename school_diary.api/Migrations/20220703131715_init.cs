@@ -174,7 +174,7 @@ namespace school_diary.api.Migrations
             migrationBuilder.InsertData(
                 table: "user",
                 columns: new[] { "userUUID", "FK_RoleId", "FK_userClassId", "address", "city", "email", "firstName", "hashPassword", "lastName", "password", "phone", "state", "zipCode" },
-                values: new object[] { new Guid("f72a1cac-7bd8-4d46-9bb0-34e136d6336d"), 5, 1, null, null, "admin@admin.com", null, "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==", null, "", null, null, null });
+                values: new object[] { new Guid("3eca1447-b391-405a-b568-d8d89a6c9d6f"), 5, 1, null, null, "admin@admin.com", null, "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==", null, "", null, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_approves_FK_LessonId",

@@ -22,7 +22,7 @@ namespace school_diary.api.Controllers
         /// Zwraca informacje o wszystkich ocenach z dziennika
         /// </summary>
         [HttpGet]
-        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Authorize(Roles = "LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllGrades()
         {
             var grades = await gradeService.GetAllGrades();

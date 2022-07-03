@@ -12,7 +12,7 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    [Migration("20220701024214_init")]
+    [Migration("20220703131715_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,7 +229,7 @@ namespace school_diary.api.Migrations
                     b.HasData(
                         new
                         {
-                            uuid = new Guid("f72a1cac-7bd8-4d46-9bb0-34e136d6336d"),
+                            uuid = new Guid("3eca1447-b391-405a-b568-d8d89a6c9d6f"),
                             FK_RoleId = 5,
                             FK_userClassId = 1,
                             email = "admin@admin.com",
