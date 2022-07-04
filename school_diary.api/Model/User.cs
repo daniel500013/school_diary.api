@@ -24,13 +24,15 @@ namespace school_diary.api.Model
         public string? address { get; set; }
 
         [JsonIgnore]
+        public int FK_RoleId { get; set; } = 1;
+        [JsonIgnore]
+        [ForeignKey("FK_RoleId")]
+        public virtual Role? Role { get; set; }
+
+        [JsonIgnore]
         public int FK_userClassId { get; set; } = 1;
         [JsonIgnore]
         [ForeignKey("FK_userClassId")]
         public virtual UserClass? userClass { get; set; }
-
-        [JsonIgnore]
-        [ForeignKey("FK_UserId")]
-        public virtual ICollection<UserRole>? Roles { get; set; }
     }
 }
