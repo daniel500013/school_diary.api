@@ -8,7 +8,6 @@ namespace school_diary.api.Model
         [JsonIgnore]
         [Column("roleID")]
         public int Id { get; set; }
-        
         [Required]
         public string Name { get; set; }
     }

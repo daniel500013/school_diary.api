@@ -42,19 +42,10 @@ namespace school_diary.api.Service
                 throw new Exception("Invalid login");
             }
 
-            Guid uuid = Guid.NewGuid();
-
-            var role = new UserRole()
-            {
-                FK_RoleId = 1,
-                FK_UserId = uuid
-            };
-
-            user.uuid = uuid;
+            user.uuid = Guid.NewGuid();
             user.hashPassword = passwordHasher.HashPassword(user, user.password);
-            user.password = String.Empty;  
+            user.password = String.Empty;
 
-            await diaryDbContext.AddAsync(role);
             await diaryDbContext.AddAsync(user);
             await diaryDbContext.SaveChangesAsync();
         }
@@ -62,8 +53,7 @@ namespace school_diary.api.Service
         public async Task<string> Login(Login userModel)
         {
             var user = await diaryDbContext.user
-                .Include(x => x.Roles)
-                .ThenInclude(x => x.Role)
+                .Include(x => x.Role)
                 .FirstOrDefaultAsync(x => x.email == userModel.email);
 
             if (user is null)
@@ -81,13 +71,9 @@ namespace school_diary.api.Service
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.uuid.ToString()),
-                new Claim(ClaimTypes.Name, user.email)
+                new Claim(ClaimTypes.Name, user.email),
+                new Claim(ClaimTypes.Role, user.Role.Name)
             };
-
-            foreach (var role in user.Roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
-            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(auth.Key));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -16,9 +16,6 @@ namespace school_diary.api
         public DbSet<Marks> marks { get; set; }
         public DbSet<Grade> grades { get; set; }
         public DbSet<Approve> approves { get; set; }
-        public DbSet<UserRole> userRole { get; set; }
-
-        public Guid Guid = Guid.NewGuid();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,16 +49,6 @@ namespace school_diary.api
                 .Property(x => x.Positive)
                 .IsRequired();
 
-            modelBuilder.Entity<UserRole>();
-
-            modelBuilder.Entity<UserClass>()
-                .HasData(new UserClass()
-                {
-                    Id = 1,
-                    userClass = 1,
-                    userClassProfile = ""
-                });
-
             modelBuilder.Entity<Role>()
                 .HasData(new Role()
                 {
@@ -89,17 +76,18 @@ namespace school_diary.api
                     Name = "Admin"
                 });
 
-            modelBuilder.Entity<UserRole>()
-                .HasData(new UserRole()
+            modelBuilder.Entity<UserClass>()
+                .HasData(new UserClass()
                 {
                     Id = 1,
-                    FK_RoleId = 1,
+                    userClass = 1,
+                    userClassProfile = ""
                 });
 
             modelBuilder.Entity<User>()
                 .HasData(new User()
                 {
-                    uuid = Guid,
+                    uuid = Guid.NewGuid(),
                     email = "admin@admin.com",
                     password = "",
                     firstName = null,
@@ -110,6 +98,7 @@ namespace school_diary.api
                     city = null,
                     zipCode = null,
                     address = null,
+                    FK_RoleId = 5,
                     FK_userClassId = 1
                 });
         }

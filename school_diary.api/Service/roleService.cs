@@ -18,22 +18,25 @@ namespace school_diary.api.Service
             return roles;
         }
 
-        public async Task<List<string>> GetUserRole(Guid uuid)
+        public async Task<string> GetUserRole(string uuid)
         {
-            var userRole = await diaryDbContext.userRole
+            var userRole = await diaryDbContext.user
                 .Include(x => x.Role)
-                .Where(x => x.FK_UserId == uuid)
-                .Select(r => r.Role.Name)
-                .ToListAsync();
+                .FirstOrDefaultAsync(x => x.uuid.ToString() == uuid);
 
-            return userRole;
+            if (userRole is null)
+            {
+                throw new Exception("Given uuid dosen't exist");
+            }
+
+            return userRole.Role.Name;
         }
 
         public async Task AddRole(Role role)
         {
             if (role is null)
             {
-                throw new ArgumentNullException("Invalid role data model");
+                throw new Exception("Invalid role data model");
             }
 
             await diaryDbContext.AddAsync(role);
@@ -44,7 +47,7 @@ namespace school_diary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new IndexOutOfRangeException("Given id equal 0");
+                throw new Exception("Given id equal 0");
             }
 
             var newRole = await diaryDbContext.role
@@ -52,7 +55,7 @@ namespace school_diary.api.Service
 
             if (newRole is null)
             {
-                throw new ArgumentNullException("Role dosen't exist");
+                throw new Exception("Role dosen't exist");
             }
 
             newRole.Name = role.Name;
@@ -68,7 +71,7 @@ namespace school_diary.api.Service
 
             if (roleToDeletet is null)
             {
-                throw new ArgumentNullException("Role dosen't exist");
+                throw new Exception("Role dosen't exist");
             }
 
             diaryDbContext.Remove(roleToDeletet);
