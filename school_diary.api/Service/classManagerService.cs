@@ -21,6 +21,7 @@ namespace school_diary.api.Service
         public async Task<string> GetUserClass(string uuid)
         {
             var userClass = await diaryDbContext.user
+                .Include(x => x.userClass)
                 .FirstOrDefaultAsync(x => x.uuid.ToString() == uuid);
 
             if (userClass is null)
