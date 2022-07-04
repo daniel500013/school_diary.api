@@ -12,7 +12,7 @@ using school_diary.api;
 namespace school_diary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    [Migration("20220703131715_init")]
+    [Migration("20220704205448_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,9 +177,6 @@ namespace school_diary.api.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("userUUID");
 
-                    b.Property<int>("FK_RoleId")
-                        .HasColumnType("int");
-
                     b.Property<int>("FK_userClassId")
                         .HasColumnType("int");
 
@@ -220,8 +217,6 @@ namespace school_diary.api.Migrations
 
                     b.HasKey("uuid");
 
-                    b.HasIndex("FK_RoleId");
-
                     b.HasIndex("FK_userClassId");
 
                     b.ToTable("user");
@@ -229,8 +224,7 @@ namespace school_diary.api.Migrations
                     b.HasData(
                         new
                         {
-                            uuid = new Guid("3eca1447-b391-405a-b568-d8d89a6c9d6f"),
-                            FK_RoleId = 5,
+                            uuid = new Guid("71ea23c3-283d-4b9c-a6aa-05e64d731a00"),
                             FK_userClassId = 1,
                             email = "admin@admin.com",
                             hashPassword = "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==",
@@ -264,6 +258,37 @@ namespace school_diary.api.Migrations
                             Id = 1,
                             userClass = 1,
                             userClassProfile = ""
+                        });
+                });
+
+            modelBuilder.Entity("school_diary.api.Model.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("UserRoleId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FK_RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("FK_UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FK_RoleId");
+
+                    b.HasIndex("FK_UserId");
+
+                    b.ToTable("userRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FK_RoleId = 1
                         });
                 });
 
@@ -313,21 +338,35 @@ namespace school_diary.api.Migrations
 
             modelBuilder.Entity("school_diary.api.Model.User", b =>
                 {
-                    b.HasOne("school_diary.api.Model.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("FK_RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("school_diary.api.Model.UserClass", "userClass")
                         .WithMany()
                         .HasForeignKey("FK_userClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("userClass");
+                });
+
+            modelBuilder.Entity("school_diary.api.Model.UserRole", b =>
+                {
+                    b.HasOne("school_diary.api.Model.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("FK_RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("school_diary.api.Model.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("FK_UserId");
+
                     b.Navigation("Role");
 
-                    b.Navigation("userClass");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("school_diary.api.Model.User", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
