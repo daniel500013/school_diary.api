@@ -38,7 +38,7 @@ namespace school_diary.api.Controllers
         [Authorize(Roles = "Student,Teacher,Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetUserRole(Guid uuid)
         {
-            var userRole = await roleService.GetUserRole(uuid.ToString());
+            var userRole = await roleService.GetUserRole(uuid);
 
             return Ok(userRole);
         }
