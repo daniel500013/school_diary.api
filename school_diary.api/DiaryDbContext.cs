@@ -94,6 +94,7 @@ namespace school_diary.api
                 {
                     Id = 1,
                     FK_RoleId = 1,
+                    FK_UserId = Guid
                 });
 
             modelBuilder.Entity<User>()
