@@ -51,18 +51,11 @@ namespace school_diary.api.Migrations
                     city = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     zipCode = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
                     address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FK_RoleId = table.Column<int>(type: "int", nullable: false),
                     FK_userClassId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_user", x => x.userUUID);
-                    table.ForeignKey(
-                        name: "FK_user_role_FK_RoleId",
-                        column: x => x.FK_RoleId,
-                        principalTable: "role",
-                        principalColumn: "roleID",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_user_userClass_FK_userClassId",
                         column: x => x.FK_userClassId,
@@ -89,6 +82,31 @@ namespace school_diary.api.Migrations
                         principalTable: "user",
                         principalColumn: "userUUID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "userRole",
+                columns: table => new
+                {
+                    UserRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FK_RoleId = table.Column<int>(type: "int", nullable: false),
+                    FK_UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_userRole", x => x.UserRoleId);
+                    table.ForeignKey(
+                        name: "FK_userRole_role_FK_RoleId",
+                        column: x => x.FK_RoleId,
+                        principalTable: "role",
+                        principalColumn: "roleID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_userRole_user_FK_UserId",
+                        column: x => x.FK_UserId,
+                        principalTable: "user",
+                        principalColumn: "userUUID");
                 });
 
             migrationBuilder.CreateTable(
@@ -173,8 +191,13 @@ namespace school_diary.api.Migrations
 
             migrationBuilder.InsertData(
                 table: "user",
-                columns: new[] { "userUUID", "FK_RoleId", "FK_userClassId", "address", "city", "email", "firstName", "hashPassword", "lastName", "password", "phone", "state", "zipCode" },
-                values: new object[] { new Guid("3eca1447-b391-405a-b568-d8d89a6c9d6f"), 5, 1, null, null, "admin@admin.com", null, "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==", null, "", null, null, null });
+                columns: new[] { "userUUID", "FK_userClassId", "address", "city", "email", "firstName", "hashPassword", "lastName", "password", "phone", "state", "zipCode" },
+                values: new object[] { new Guid("71ea23c3-283d-4b9c-a6aa-05e64d731a00"), 1, null, null, "admin@admin.com", null, "AQAAAAEAACcQAAAAEFvY2W0hbidymRwUuDJrnyJ0QgZDGZFyUA/UbjsmJoj2bJC90u0MI+p78tTQU8cSMg==", null, "", null, null, null });
+
+            migrationBuilder.InsertData(
+                table: "userRole",
+                columns: new[] { "UserRoleId", "FK_RoleId", "FK_UserId" },
+                values: new object[] { 1, 1, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_approves_FK_LessonId",
@@ -197,14 +220,19 @@ namespace school_diary.api.Migrations
                 column: "FK_LessonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_user_FK_RoleId",
-                table: "user",
-                column: "FK_RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_user_FK_userClassId",
                 table: "user",
                 column: "FK_userClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userRole_FK_RoleId",
+                table: "userRole",
+                column: "FK_RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userRole_FK_UserId",
+                table: "userRole",
+                column: "FK_UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -219,13 +247,16 @@ namespace school_diary.api.Migrations
                 name: "marks");
 
             migrationBuilder.DropTable(
+                name: "userRole");
+
+            migrationBuilder.DropTable(
                 name: "lesson");
 
             migrationBuilder.DropTable(
-                name: "user");
+                name: "role");
 
             migrationBuilder.DropTable(
-                name: "role");
+                name: "user");
 
             migrationBuilder.DropTable(
                 name: "userClass");
